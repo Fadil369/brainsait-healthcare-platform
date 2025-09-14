@@ -4,12 +4,16 @@ from fastapi.responses import JSONResponse
 import os
 import asyncio
 from datetime import datetime
+from audit_logger import AuditMiddleware, log_audit_event, AUDIT_ACTIONS
 
 app = FastAPI(
     title="BrainSAIT Store API",
     description="E-commerce platform for BrainSAIT targeting Middle East market",
     version="2.0.0"
 )
+
+# Add audit middleware first
+app.add_middleware(AuditMiddleware)
 
 # CORS middleware for cross-origin requests
 app.add_middleware(
