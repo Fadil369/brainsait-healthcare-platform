@@ -1,16 +1,12 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
 import SkipLink from "@/components/SkipLink";
 import ToastProvider from "@/components/ToastProvider";
 import MeshBackground from "@/components/MeshBackground";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
-const plexArabic = IBM_Plex_Sans_Arabic({ 
-  subsets: ["arabic"], 
-  display: "swap",
-  weight: ["400", "500", "600", "700"]
-});
+// Using system fonts for offline builds
+const inter = { className: "font-sans" };
+const plexArabic = { className: "font-sans" };
 
 export const metadata: Metadata = {
   title: "BrainSAIT Unified Healthcare Platform",
