@@ -1,0 +1,77 @@
+services:
+  healthcare-platform:
+    build: ./services/healthcare-platform
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=production
+
+  store:
+    build: ./services/store
+    restart: unless-stopped
+    ports:
+      - "3001:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://brainsait:SecurePassword123!@store-db:5432/brainsait_b2b
+    depends_on:
+      - store-db
+
+  store-db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: brainsait_b2b
+      POSTGRES_USER: brainsait
+      POSTGRES_PASSWORD: SecurePassword123!
+    volumes:
+      - store_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  openemr:
+    build: ./services/openemr
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - MYSQL_HOST=openemr-db
+      - MYSQL_USER=openemr
+      - MYSQL_PASSWORD=openemr
+      - MYSQL_DATABASE=openemr
+    depends_on:
+      - openemr-db
+
+  gateway:
+    build: ./services/gateway
+    restart: unless-stopped
+    depends_on:
+      - healthcare-platform
+      - store
+      - openemr
+    ports:
+      - "8088:80"
+
+  openemr-db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: openemr
+      MYSQL_USER: openemr
+      MYSQL_PASSWORD: openemr
+    volumes:
+      - openemr_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  tunnel:
+    build: ./services/tunnel
+    restart: unless-stopped
+    depends_on:
+      - gateway
+    network_mode: host
+
+volumes:
+  store_data:
+  openemr_data:

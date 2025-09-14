@@ -1,0 +1,7 @@
+tunnel: bb538100-d967-49fa-8839-d1f6ccc9ee48
+credentials-file: /etc/cloudflared/bb538100-d967-49fa-8839-d1f6ccc9ee48.json
+
+ingress:
+  - hostname: brainsait.com
+    service: http://172.21.0.7:80
+  - service: http://172.21.0.7:80

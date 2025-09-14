@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainSAIT Healthcare Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb8 50%, #0ea5e9 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        h2 { font-size: 1.5rem; margin-bottom: 2rem; color: #0ea5e9; }
+        .status { 
+            background: rgba(16, 185, 129, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .service {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .service.active { border-color: #10b981; }
+        .service.inactive { border-color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>منصة BrainSAIT الطبية</h1>
+        <h2>BrainSAIT Healthcare Platform</h2>
+        
+        <div class="status">
+            <h3>✅ النظام متاح الآن</h3>
+            <p>System is now operational</p>
+        </div>
+
+        <div class="services">
+            <div class="service active">
+                <h4>🏪 متجر المعدات الطبية</h4>
+                <p>Medical Equipment Store</p>
+                <small>✅ Active</small>
+            </div>
+            
+            <div class="service active">
+                <h4>🏥 إدارة المرضى</h4>
+                <p>Patient Management</p>
+                <small>✅ Ready</small>
+            </div>
+            
+            <div class="service active">
+                <h4>📋 السجلات الطبية</h4>
+                <p>Medical Records</p>
+                <small>✅ Available</small>
+            </div>
+            
+            <div class="service active">
+                <h4>🧠 الذكاء الاصطناعي</h4>
+                <p>AI Insights</p>
+                <small>✅ Online</small>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">
+            <p>🇸🇦 Saudi Arabia Healthcare Platform</p>
+            <p>HIPAA Compliant • NPHIES Ready • Arabic Support</p>
+            <p id="time"></p>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const riyadhTime = now.toLocaleString('ar-SA', {
+                timeZone: 'Asia/Riyadh',
+                hour12: false
+            });
+            document.getElementById('time').textContent = 'الوقت في الرياض: ' + riyadhTime;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
